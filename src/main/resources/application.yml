@@ -1,0 +1,7 @@
+errorCodesList:
+  "INTERNAL_FAILURE":
+   type: E
+   excpetionCode: "1002"
+   httpStatus: "404"
+   exceptionMMsg: "NO DATA FOUND"
+   exceptionDetails: "The Requested data was not found"
