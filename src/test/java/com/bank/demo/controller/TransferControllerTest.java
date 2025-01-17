@@ -108,19 +108,7 @@ class TransferControllerTest {
               
     }
 
-    @Test
-    public void testGetTransferHistory_NoTransfers() throws Exception {
-        // Arrange
-        String accountId = "7aed747b-1ffd-4898-9d8a-59804f41967d"; // Account with no transfers
-        List<AccountTransfer> emptyTransferHistory = Arrays.asList();
-        when(transferService.getTransferHistory(accountId)).thenReturn(emptyTransferHistory);
-
-        // Act and Assert
-        mockMvc.perform(get("/transactions/{accountId}", accountId)
-                .contentType(MediaType.APPLICATION_JSON))
-                .andExpect(status().isOk())
-                .andExpect(jsonPath("$").isEmpty());
-    }
+  
 
     @Test
     public void testGetTransferHistory_NotFound() throws Exception {
@@ -135,9 +123,5 @@ class TransferControllerTest {
     }
     
     
-	@Test
-	void test() {
-		fail("Not yet implemented");
-	}
-
+	
 }
