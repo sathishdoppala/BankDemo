@@ -56,11 +56,12 @@ class TransferControllerTest {
     	tranferRquest.setToAccountId("7aed747b-1ffd-4898-9d8a-59804f41967d");
     	tranferRquest.setAmount(10);
         when(transferService.tranferAmout(validRequest)).thenReturn(tranferRquest);
-
+        String transferJson = "{\"fromAccountId\":\"907b8f1b-590b-4eed-a975-005bc087520b\", \"toAccountId\":\"7aed747b-1ffd-4898-9d8a-59804f41967d\", \"amount\":10}";
         mockMvc.perform(post("/transfer")
                 .contentType(MediaType.APPLICATION_JSON)
-                .content("{\"fromAccountId\":907b8f1b-590b-4eed-a975-005bc087520b, \"toAccountId\":7aed747b-1ffd-4898-9d8a-59804f41967d, \"amount\":10.00}"))
-                .andExpect(status().isOk());
+                //.content("{\"fromAccountId\":907b8f1b-590b-4eed-a975-005bc087520b, \"toAccountId\":7aed747b-1ffd-4898-9d8a-59804f41967d, \"amount\":10}"))
+                .content(transferJson))
+                .andExpect(status().isCreated());
                
     }
     

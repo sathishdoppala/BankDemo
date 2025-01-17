@@ -13,7 +13,10 @@ import com.bank.demo.model.AccountTransfer;
 import com.bank.demo.repo.TransferRepository;
 import com.bank.demo.request.CreateTransfer;
 
+import lombok.extern.slf4j.Slf4j;
+
 @Service
+@Slf4j
 public class TransferService {
 
 	@Autowired
@@ -23,6 +26,7 @@ public class TransferService {
 	private AccountService accountService;
 
 	public AccountTransfer tranferAmout(CreateTransfer transfer) {
+		log.info("Entering into TransferService::transferAmount"+transfer );
 		Account fromAccount = accountService.getAccount(transfer.getFromAccountId());
 		Account toAccount = accountService.getAccount(transfer.getToAccountId());
 		
