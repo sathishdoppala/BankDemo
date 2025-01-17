@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.bank.demo.exception.TransferHistoryNotFoundException;
 import com.bank.demo.model.AccountTransfer;
 import com.bank.demo.request.CreateTransfer;
 import com.bank.demo.service.TransferService;
@@ -46,9 +47,14 @@ public ResponseEntity<?> transferAmount(@RequestBody CreateTransfer createTransf
 }
 
 @GetMapping("/transactions/{accountId}")
-public ResponseEntity<List<AccountTransfer>> getTransactionHistory(@PathVariable String accountId){
+public ResponseEntity<?> getTransactionHistory(@PathVariable String accountId){
+	try {
 	List<AccountTransfer> transfers = transferService.getTransferHistory(accountId);
 	return new ResponseEntity<>(transfers,HttpStatus.OK);
+	} catch(TransferHistoryNotFoundException te) {
+		return new ResponseEntity<>(te.getMessage(),HttpStatus.NOT_FOUND);
+	}
+	
 }
 
 }

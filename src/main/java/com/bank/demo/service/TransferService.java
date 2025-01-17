@@ -7,6 +7,7 @@ import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.bank.demo.exception.TransferHistoryNotFoundException;
 import com.bank.demo.model.Account;
 import com.bank.demo.model.AccountTransfer;
 import com.bank.demo.repo.TransferRepository;
@@ -55,8 +56,14 @@ public class TransferService {
 	}
 
 	public List<AccountTransfer> getTransferHistory(String accountId) {
-		return transferRepo.findAll().stream().filter(transfer -> transfer.getFromAccountId().equals(accountId)
+		
+		 List<AccountTransfer> listTransfer = transferRepo.findAll().stream().filter(transfer -> transfer.getFromAccountId().equals(accountId)
 				|| transfer.getToAccountId().equals(accountId)).collect(Collectors.toList());
+		 if(listTransfer.isEmpty())
+		 {
+			 throw new TransferHistoryNotFoundException("Transfer history is Empty for this accountid");
+		 }
+		 return listTransfer;
 	}
 
 }
